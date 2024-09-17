@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Docker: Python - Django",
+            "type": "docker",
+            "request": "launch",
+            "preLaunchTask": "docker-run: debug",
+            "python": {
+                "pathMappings": [
+                    {
+                        "localRoot": "${workspaceFolder}",
+                        "remoteRoot": "/app"
+                    }
+                ],
+                "projectType": "django"
+            },
+            "django": true,
+            "host": "0.0.0.0", // Ensure the server listens on all interfaces
+            "port": 9000, // Change this if your Django app runs on a different port
+            "logpoint": true, // Optional: Enable logging
+            "justMyCode": true, // Optional: Debug only your code, not external libraries
+            "debugAdapterHost": "localhost" // Ensures the debugger connects to the right address
+        }
+    ]
+}

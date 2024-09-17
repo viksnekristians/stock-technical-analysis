@@ -1,0 +1,43 @@
+version: '3.4'
+
+services:
+  web:
+    build: .
+    container_name: stock-technical-analysis
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    user: kris
+  mysql:
+    container_name: mysql-db
+    image: mysql
+    ports: 
+        - "3306:3306"
+    environment:
+        MYSQL_DATABASE: ${DB_NAME}
+        MYSQL_USER: ${DB_USER}
+        MYSQL_PASSWORD: ${DB_PASS}
+        MYSQL_ROOT_PASSWORD: ${DB_PASS}
+    volumes:
+        - ./dump:/docker-entrypoint-initdb.d
+        - persistent:/var/lib/mysql
+    networks:
+        - default
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+        - "8080:80"
+    environment:
+        - PMA_ARBITRARY=1
+        - PMA_HOST=mysql-db
+    restart: always
+    depends_on:
+        - mysql
+volumes:
+    persistent:
