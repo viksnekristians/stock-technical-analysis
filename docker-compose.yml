@@ -4,7 +4,7 @@ services:
   web:
     build: .
     container_name: stock-technical-analysis
-    command: python manage.py runserver 0.0.0.0:8000
+    command: ["./wait-for-it.sh", "mysql-db:3306", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
     environment:
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1

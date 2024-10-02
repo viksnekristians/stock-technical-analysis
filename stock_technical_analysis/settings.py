@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'visualization',
+    'assets',
 ]
 
 MIDDLEWARE = [
@@ -88,7 +89,7 @@ DATABASES = {
         'NAME': env('DB_NAME'),          # Name of your MySQL database
         'USER': env('DB_USER'),          # MySQL username
         'PASSWORD': env('DB_PASS'),           # MySQL password
-        'HOST': 'mysql-db',                   # Use 'localhost' if MySQL is on the same machine, or the IP address of the MySQL server
+        'HOST': env('DB_HOST'),                   # Use 'localhost' if MySQL is on the same machine, or the IP address of the MySQL server
         'PORT': env('DB_PORT'),                       # Default MySQL port (3306)
     }
 }
