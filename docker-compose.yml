@@ -4,7 +4,12 @@ services:
   web:
     build: .
     container_name: stock-technical-analysis
-    command: ["./wait-for-it.sh", "mysql-db:3306", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: >
+      sh -c "
+      ./wait-for-it.sh mysql-db:3306 -- &&
+      cron &&
+      python manage.py runserver 0.0.0.0:8000
+      "
     environment:
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
@@ -12,7 +17,7 @@ services:
       - .:/app
     ports:
       - "8000:8000"
-    user: kris
+    user: root
   mysql:
     container_name: mysql-db
     image: mysql
