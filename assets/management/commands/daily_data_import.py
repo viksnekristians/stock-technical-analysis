@@ -14,7 +14,7 @@ class Command(BaseCommand):
 
             try:
                 a = DailyAssetInfo.objects.get(
-                    asset_id=3,
+                    asset_id=5,
                     date=date
                 )
 
@@ -23,7 +23,7 @@ class Command(BaseCommand):
                     continue  # Skip the current iteration if the object exists
             except DailyAssetInfo.DoesNotExist:
                 daily = DailyAssetInfo(
-                    asset_id = 3,
+                    asset_id = 5,
                     open = float(values['1. open']),
                     high = float(values['1. open']),
                     low = float(values['1. open']),

@@ -1,2 +1,2 @@
-# Run Django management command every FOR NOW 1minute (debug)
-*/1 * * * * root /usr/local/bin/python /app/manage.py daily_data_import >> /var/log/cron.log 2>&1
+# Import daily asset info 2 times a day - 8am and 8pm
+0 8,20 * * * root /usr/local/bin/python /app/manage.py daily_data_import >> /var/log/cron.log 2>&1

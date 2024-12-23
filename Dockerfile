@@ -18,8 +18,8 @@ RUN python -m pip install -r requirements.txt
 WORKDIR /app
 COPY . /app
 
-COPY crontab /etc/cron.d/daily_data_import
+COPY crontab /etc/cron.d/dev_server_crons
 
 # Apply the cron job
-RUN chmod 0644 /etc/cron.d/daily_data_import
-RUN crontab /etc/cron.d/daily_data_import
+RUN chmod 0644 /etc/cron.d/dev_server_crons
+RUN crontab /etc/cron.d/dev_server_crons
