@@ -20,6 +20,11 @@ COPY . /app
 
 COPY crontab /etc/cron.d/dev_server_crons
 
-# Apply the cron job
-RUN chmod 0644 /etc/cron.d/dev_server_crons
-RUN crontab /etc/cron.d/dev_server_crons
+# Add this line to copy the entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Make the script executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set the entrypoint
+ENTRYPOINT ["entrypoint.sh"]

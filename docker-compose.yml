@@ -4,12 +4,6 @@ services:
   web:
     build: .
     container_name: stock-technical-analysis
-    command: >
-      sh -c "
-      ./wait-for-it.sh mysql-db:3306 -- &&
-      cron &&
-      python manage.py runserver 0.0.0.0:8000
-      "
     environment:
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
