@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from assets.Services.API.Alphavantage.alphavantage_api_client import AlphavantageApiClient
+from assets.services.API.Alphavantage.alphavantage_api_client import AlphavantageApiClient
 from assets.models import DailyAssetInfo, Asset
 from datetime import datetime
 
@@ -10,7 +10,12 @@ class Command(BaseCommand):
         all_assets = Asset.objects.all()
 
         for asset in all_assets:
-            data = client.getDailyInfo(asset.symbol)
+            try:
+                data = client.getDailyInfo(asset.symbol)
+            except Exception as e:
+                print(f"Error fetching data for {asset.symbol}: {e}")
+                continue
+                
             for day, values in data['Time Series (Daily)'].items():
                 date=datetime.strptime(day, "%Y-%m-%d").date()
 

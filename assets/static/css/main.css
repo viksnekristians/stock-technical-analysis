@@ -1,0 +1,8 @@
+#asset-info-container {
+    max-width: 800px;
+    margin: 40px auto;   /* centers the container */
+    padding: 20px;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+}

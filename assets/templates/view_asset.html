@@ -1,11 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dynamic Data Display</title>
+    <title>Asset Data Display</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 </head>
 <body>
-    <canvas id="stockChart" width="400" height="200"></canvas>
+    <div id="asset-info-container">
+        <div id="asset-details">
+            <h1>Asset Information</h1>
+            <p><strong>Symbol:</strong> {{ asset.symbol }}</p>
+            <p><strong>Name:</strong> {{ asset.name }}</p>
+            <p><strong>Description:</strong> {{ asset.description }}</p>
+        </div>
+        <canvas id="stockChart" width="400" height="200"></canvas>
+        <button id="ai-summary-btn">Get AI Summary</button>
+        <div id="ai-response" style="margin-top:20px;"></div>
+    </div>
     <script>
         const ctx = document.getElementById('stockChart').getContext('2d');
         const stockData = {{ daily_info|safe }}; // Use |safe to prevent escaping
@@ -29,6 +41,19 @@
                     y: { title: { display: true, text: 'Price' } },
                 }
             }
+        });
+    </script>
+    <script>
+        document.getElementById('ai-summary-btn').addEventListener('click', function() {
+            fetch('/assets/get_ai_summary/1/')
+                .then(response => response.json())
+                .then(data => {
+                    let answer = data.response || JSON.stringify(data);
+                    document.getElementById('ai-response').textContent = answer;
+                })
+                .catch(error => {
+                    document.getElementById('ai-response').textContent = 'AI summary is currently not available';
+                });
         });
     </script>
 </body>
