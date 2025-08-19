@@ -34,7 +34,7 @@
   python manage.py daily_data_import
   ```
   (Run this inside the app container.)  
-  _It is also scheduled as a cronjob at 8am and 8pm server time.
+  _It is also scheduled as a cronjob at 8am and 8pm server time._
 
 - **Alphavantage API** is used for asset data fetching.
 
